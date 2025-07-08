@@ -1,4 +1,4 @@
-package com.tuiasi.visit.domain;
+package com.tuiasi.visit.domain.dto;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -10,20 +10,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Entity
-@Table(name = "admins")
-public class Admin {
+public class AdminDto {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(columnDefinition = "TINYINT")
+
     private Integer id;
 
-    @Column(length = 30)
     private String username;
 
     private String hash_password;
 
-    @Column(length = 100)
     private String email;
 }
