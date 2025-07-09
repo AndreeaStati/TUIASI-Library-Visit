@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RestController;
 import com.tuiasi.visit.services.AdminService;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @RestController
 public class AdminController {
 
@@ -21,11 +24,20 @@ public class AdminController {
         this.adminService = adminService;
         this.adminMapper = adminMapper;
     }
+
     @PostMapping(path = "/admins")
     public ResponseEntity<AdminDto> createAdmin(@RequestBody AdminDto admin) {
         AdminEntity adminEntity = adminMapper.mapFrom(admin);
         AdminEntity savedAdminEntity = adminService.createAdmin(adminEntity);
         AdminDto response = adminMapper.mapTo(savedAdminEntity);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
+    }
+
+    @GetMapping(path = "/admins")
+    public List<AdminDto> findAll() {
+        List<AdminEntity> adminEntities = adminService.findAll();
+        return adminEntities.stream()
+                .map(adminMapper::mapTo)
+                .collect(Collectors.toList());
     }
 }
