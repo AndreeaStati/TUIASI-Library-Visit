@@ -9,8 +9,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RestController;
 import com.tuiasi.visit.services.AdminService;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -40,4 +42,14 @@ public class AdminController {
                 .map(adminMapper::mapTo)
                 .collect(Collectors.toList());
     }
+
+    @GetMapping(path = "/admins/{id}")
+    public ResponseEntity<AdminDto> findById(@PathVariable Integer id) {
+        Optional<AdminEntity> foundAdmin = adminService.findById(id);
+        return foundAdmin.map(adminEntity -> {
+            AdminDto response = adminMapper.mapTo(adminEntity);
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        }).orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+    
 }

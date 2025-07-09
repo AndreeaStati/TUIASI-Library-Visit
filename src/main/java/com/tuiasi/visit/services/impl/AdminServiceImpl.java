@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.tuiasi.visit.services.AdminService;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -28,6 +29,11 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public List<AdminEntity> findAll() {
         return StreamSupport.stream(adminRepository.findAll().spliterator(), false).collect(Collectors.toList());
+    }
+
+    @Override
+    public Optional<AdminEntity> findById(Integer id) {
+        return adminRepository.findById(id);
     }
 
 
