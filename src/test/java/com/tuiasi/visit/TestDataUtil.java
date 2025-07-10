@@ -2,10 +2,14 @@ package com.tuiasi.visit;
 
 import com.tuiasi.visit.domain.dto.BlockedSlotsDto;
 import com.tuiasi.visit.domain.entities.AdminEntity;
+
 import com.tuiasi.visit.domain.entities.BlockedSlotsEntity;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+
+import com.tuiasi.visit.domain.entities.UserEntity;
+
 
 public class TestDataUtil {
 
@@ -76,6 +80,32 @@ public class TestDataUtil {
                 .startTime(LocalTime.parse("13:00"))
                 .endTime(LocalTime.parse("14:00"))
                 .reason("Probleme tehnice")
+                .build();
+    }
+
+
+    public static UserEntity createUserA() {
+        return UserEntity.builder()
+                .firstName("alin")
+                .lastName("admin")
+                .email("ceva@student.tuiasi.ro")
+                .phoneNumber("123456789")
+                .build();
+    }
+    public static UserEntity createUserB() {
+        return UserEntity.builder()
+                .firstName("Andreea")
+                .lastName("admin")
+                .email("ceva@student.tuiasi.ro")
+                .phoneNumber("123456789")
+                .build();
+    }
+    public static UserEntity createUserC() {
+        return UserEntity.builder()
+                .firstName("Ciobanu")
+                .lastName("admin")
+                .email("ceva@student.tuiasi.ro")
+                .phoneNumber("123456789")
                 .build();
     }
 
