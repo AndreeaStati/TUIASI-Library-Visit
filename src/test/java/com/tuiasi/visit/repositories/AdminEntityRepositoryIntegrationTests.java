@@ -53,7 +53,7 @@ public class AdminEntityRepositoryIntegrationTests {
     public void testAdminCanBeUpdatedAndRecalled() {
         AdminEntity adminEntity = TestDataUtil.createAdminA();
         adminRepository.save(adminEntity);
-        adminEntity.setUsername("alin");
+        adminEntity.setUsername("UPDATED");
         adminRepository.save(adminEntity);
         Optional<AdminEntity> result = adminRepository.findById(adminEntity.getId());
         assertThat(result).isPresent();
