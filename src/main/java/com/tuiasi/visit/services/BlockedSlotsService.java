@@ -11,4 +11,12 @@ public interface BlockedSlotsService {
     List<BlockedSlotsEntity> findAll();
 
     Optional<BlockedSlotsEntity> findOne(Integer id);
+
+    public boolean isExists(Integer id);
+
+    BlockedSlotsEntity save(BlockedSlotsEntity blockedSlotEntity);
+
+    public BlockedSlotsEntity partialUpdateBlockedSlot(Integer id, BlockedSlotsEntity blockedSlotEntity);
+
+    void delete(Integer id);
 }

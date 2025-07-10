@@ -40,5 +40,33 @@ public class BlockedSlotsServiceImpl implements BlockedSlotsService {
         return blockedSlotsRepository.findById(id);
     }
 
+    @Override
+    public boolean isExists(Integer id) {
+        return blockedSlotsRepository.existsById(id);
+    }
+
+    @Override
+    public BlockedSlotsEntity save(BlockedSlotsEntity blockedSlotEntity) {
+        return blockedSlotsRepository.save(blockedSlotEntity);
+    }
+
+    @Override
+    public BlockedSlotsEntity partialUpdateBlockedSlot(Integer id, BlockedSlotsEntity blockedSlotEntity) {
+        blockedSlotEntity.setId(id);
+
+        return blockedSlotsRepository.findById(id).map(existingBlockedSlot -> {
+            Optional.ofNullable(blockedSlotEntity.getDate()).ifPresent(existingBlockedSlot::setDate);
+            Optional.ofNullable(blockedSlotEntity.getStartTime()).ifPresent(existingBlockedSlot::setStartTime);
+            Optional.ofNullable(blockedSlotEntity.getEndTime()).ifPresent(existingBlockedSlot::setEndTime);
+            Optional.ofNullable(blockedSlotEntity.getReason()).ifPresent(existingBlockedSlot::setReason);
+            return blockedSlotsRepository.save(existingBlockedSlot);
+        }).orElseThrow(() -> new RuntimeException("Blocked slot does not exist"));
+    }
+
+    @Override
+    public void delete(Integer id) {
+        blockedSlotsRepository.deleteById(id);
+    }
+
 
 }

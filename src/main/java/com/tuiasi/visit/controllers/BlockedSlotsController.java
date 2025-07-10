@@ -48,6 +48,49 @@ public class BlockedSlotsController {
         BlockedSlotsDto response = blockedSlotsMapper.mapTo(savedBlockedSlotEntity);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
+
+     @PutMapping(path = "/blocked-slots/{id}")
+    public ResponseEntity<BlockedSlotsDto> fullUpdateBlockedSlot(
+            @PathVariable("id") Integer id,
+            @RequestBody BlockedSlotsDto blockedSlotDto) {
+
+        if(!blockedSlotsService.isExists(id)) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        blockedSlotDto.setId(id);
+        BlockedSlotsEntity blockedSlotEntity = blockedSlotsMapper.mapFrom(blockedSlotDto);
+        BlockedSlotsEntity savedBlockedSlotEntity = blockedSlotsService.save(blockedSlotEntity);
+        return new ResponseEntity<>(
+                blockedSlotsMapper.mapTo(savedBlockedSlotEntity),
+                HttpStatus.OK);
+    }
+
+
+    @PatchMapping(path = "/blocked-slots/{id}")
+    public ResponseEntity<BlockedSlotsDto> partialUpdateBlockedSlot(
+            @PathVariable("id") Integer id,
+            @RequestBody BlockedSlotsDto blockedSlotDto
+    ) {
+        if(!blockedSlotsService.isExists(id)) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        BlockedSlotsEntity blockedSlotEntity = blockedSlotsMapper.mapFrom(blockedSlotDto);
+        BlockedSlotsEntity updatedBlockedSlot = blockedSlotsService.partialUpdateBlockedSlot(id, blockedSlotEntity);
+        return new ResponseEntity<>(
+                blockedSlotsMapper.mapTo(updatedBlockedSlot),
+                HttpStatus.OK);
+    }
+
+
+    @DeleteMapping(path = "/blocked-slots/{id}")
+    public ResponseEntity deleteBlockedSlot(@PathVariable("id") Integer id) {
+        blockedSlotsService.delete(id);
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
+    }
+
+
 }
 
 
