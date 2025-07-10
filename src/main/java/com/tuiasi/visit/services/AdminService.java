@@ -7,8 +7,9 @@ import java.util.List;
 import java.util.Optional;
 
 
-public interface AdminService {
+public interface AdminService  {
     AdminEntity createAdmin(AdminEntity adminEntity);
+
     List<AdminEntity> findAll();
 
     Optional<AdminEntity> findById(Integer id);
