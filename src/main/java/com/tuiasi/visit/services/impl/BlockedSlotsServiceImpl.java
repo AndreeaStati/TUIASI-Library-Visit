@@ -6,6 +6,11 @@ import com.tuiasi.visit.services.BlockedSlotsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
+
 @Service
 public class BlockedSlotsServiceImpl implements BlockedSlotsService {
 
@@ -20,4 +25,20 @@ public class BlockedSlotsServiceImpl implements BlockedSlotsService {
     public BlockedSlotsEntity createBlockedSlot(BlockedSlotsEntity blockedSlotsEntity) {
         return blockedSlotsRepository.save(blockedSlotsEntity);
     }
+
+    @Override
+    public List<BlockedSlotsEntity> findAll() {
+        return StreamSupport.stream(blockedSlotsRepository
+                                .findAll()
+                                .spliterator(),
+                        false)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public Optional<BlockedSlotsEntity> findOne(Integer id) {
+        return blockedSlotsRepository.findById(id);
+    }
+
+
 }

@@ -1,5 +1,6 @@
 package com.tuiasi.visit;
 
+import com.tuiasi.visit.domain.dto.BlockedSlotsDto;
 import com.tuiasi.visit.domain.entities.AdminEntity;
 import com.tuiasi.visit.domain.entities.BlockedSlotsEntity;
 
@@ -57,4 +58,25 @@ public class TestDataUtil {
                 .reason("Blocare administrativa")
                 .build();
     }
+
+    public static BlockedSlotsEntity createTestBlockedSlotEntityA() {
+        return BlockedSlotsEntity.builder()
+                .id(1)
+                .date(LocalDate.parse("2025-07-13"))
+                .startTime(LocalTime.parse("13:00"))
+                .endTime(LocalTime.parse("14:00"))
+                .reason("Probleme tehnice")
+                .build();
+    }
+
+    public static BlockedSlotsDto createTestBlockedSlotDtoA() {
+        return BlockedSlotsDto.builder()
+                .id(1)
+                .date(LocalDate.parse("2025-07-13"))
+                .startTime(LocalTime.parse("13:00"))
+                .endTime(LocalTime.parse("14:00"))
+                .reason("Probleme tehnice")
+                .build();
+    }
+
 }

@@ -1,12 +1,13 @@
 package com.tuiasi.visit.domain.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.sql.Date;
-import java.sql.Time;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Data
 @AllArgsConstructor
@@ -15,11 +16,13 @@ import java.sql.Time;
 public class BlockedSlotsDto {
     private Integer id;
 
-    private Date date;
+    private LocalDate date;
 
-    private Time startTime;
+    @JsonProperty("start_time")
+    private LocalTime startTime;
 
-    private Time endTime;
+    @JsonProperty("end_time")
+    private LocalTime endTime;
 
     private String reason;
 }
