@@ -9,6 +9,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 import com.tuiasi.visit.domain.entities.BookingEntity;
+import com.tuiasi.visit.domain.entities.CategoriesEntity;
 import com.tuiasi.visit.domain.entities.UserEntity;
 
 
@@ -110,6 +111,26 @@ public class TestDataUtil {
                 .build();
     }
 
+    public static CategoriesEntity createCategoryA() {
+        return CategoriesEntity.builder()
+                .categoryName("Students")
+                .pricePerPerson(0.0)
+                .build();
+    }
+
+    public static CategoriesEntity createCategoryB() {
+        return CategoriesEntity.builder()
+                .categoryName("Adults")
+                .pricePerPerson(10.0)
+                .build();
+    }
+
+    public static CategoriesEntity createCategoryC() {
+        return CategoriesEntity.builder()
+                .categoryName("Tourist Group")
+                .pricePerPerson(15.0)
+                .build();
+    }
     public static BookingEntity createBookingA(final UserEntity userEntity) {
 
         return BookingEntity.builder()
