@@ -8,6 +8,7 @@ import com.tuiasi.visit.domain.entities.BlockedSlotsEntity;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+import com.tuiasi.visit.domain.entities.BookingEntity;
 import com.tuiasi.visit.domain.entities.UserEntity;
 
 
@@ -109,4 +110,40 @@ public class TestDataUtil {
                 .build();
     }
 
+    public static BookingEntity createBookingA(final UserEntity userEntity) {
+
+        return BookingEntity.builder()
+                .date(LocalDate.parse("2025-07-09"))
+                .startTime(LocalTime.parse("11:00"))
+                .endTime(LocalTime.parse("13:00"))
+                .user(userEntity)
+                .totalPrice( 30)
+                .status("finalized")
+                .build();
+    }
+
+
+    public static BookingEntity createBookingB(final UserEntity userEntity) {
+
+        return BookingEntity.builder()
+                .date(LocalDate.parse("2025-07-09"))
+                .startTime(LocalTime.parse("11:00"))
+                .endTime(LocalTime.parse("13:00"))
+                .user(userEntity)
+                .totalPrice( 30)
+                .status("cancelled")
+                .build();
+    }
+
+    public static BookingEntity createBookingC(final UserEntity userEntity) {
+
+        return BookingEntity.builder()
+                .date(LocalDate.parse("2026-07-09"))
+                .startTime(LocalTime.parse("14:00"))
+                .endTime(LocalTime.parse("15:00"))
+                .user(userEntity)
+                .totalPrice( 30)
+                .status("unpaid")
+                .build();
+    }
 }
