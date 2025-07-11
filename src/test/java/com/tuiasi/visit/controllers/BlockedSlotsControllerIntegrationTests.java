@@ -74,5 +74,16 @@ public class BlockedSlotsControllerIntegrationTests {
                 MockMvcResultMatchers.jsonPath("$.reason").value("Probleme tehnice")
         );
     }
+
+    @Test
+    public void testThatListBlockedSlotsReturnsHttpStatus200() throws Exception{
+        mockMvc.perform(
+                MockMvcRequestBuilders.get("/blocked-slots")
+                        .contentType(MediaType.APPLICATION_JSON)
+        ).andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
+
+
 }
 
