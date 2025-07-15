@@ -6,12 +6,9 @@ import com.tuiasi.visit.domain.entities.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-<<<<<<< Updated upstream
 import com.tuiasi.visit.domain.entities.BookingEntity;
 import com.tuiasi.visit.domain.entities.UserEntity;
-
-=======
->>>>>>> Stashed changes
+ Stashed changes
 
 public class TestDataUtil {
 
