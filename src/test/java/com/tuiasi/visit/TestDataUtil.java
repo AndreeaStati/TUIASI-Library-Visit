@@ -1,16 +1,17 @@
 package com.tuiasi.visit;
 
 import com.tuiasi.visit.domain.dto.BlockedSlotsDto;
-import com.tuiasi.visit.domain.entities.AdminEntity;
-
-import com.tuiasi.visit.domain.entities.BlockedSlotsEntity;
+import com.tuiasi.visit.domain.entities.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+<<<<<<< Updated upstream
 import com.tuiasi.visit.domain.entities.BookingEntity;
 import com.tuiasi.visit.domain.entities.UserEntity;
 
+=======
+>>>>>>> Stashed changes
 
 public class TestDataUtil {
 
@@ -145,5 +146,35 @@ public class TestDataUtil {
                 .totalPrice( 30)
                 .status("unpaid")
                 .build();
+    }
+
+    public static PaymentEntity createPaymentA(final BookingEntity bookingEntity) {
+
+        return PaymentEntity.builder()
+                .amount(20)
+                .paymentDate(LocalDate.parse("2025-07-09"))
+                .booking(bookingEntity)
+                .build();
+
+    }
+
+    public static PaymentEntity createPaymentB(final BookingEntity bookingEntity) {
+
+        return PaymentEntity.builder()
+                .amount(2023)
+                .paymentDate(LocalDate.parse("2025-07-09"))
+                .booking(bookingEntity)
+                .build();
+
+    }
+
+    public static PaymentEntity createPaymentC(final BookingEntity bookingEntity) {
+
+        return PaymentEntity.builder()
+                .amount(255)
+                .paymentDate(LocalDate.parse("2055-07-09"))
+                .booking(bookingEntity)
+                .build();
+
     }
 }
