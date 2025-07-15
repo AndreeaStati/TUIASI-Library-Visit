@@ -10,13 +10,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class CategoriesDto {
+public class BookingDetailsDto {
+    private BookingDto booking;
+    private CategoryDto category;
 
-    private Integer id;
-
-    @JsonProperty("category_name")
-    private String categoryName;
-
-    @JsonProperty("price_per_person")
-    private Double pricePerPerson;
+    @JsonProperty("number_of_users")
+    private Integer numberOfUsers;
 }

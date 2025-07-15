@@ -1,16 +1,10 @@
 package com.tuiasi.visit;
 
 import com.tuiasi.visit.domain.dto.BlockedSlotsDto;
-import com.tuiasi.visit.domain.entities.AdminEntity;
-
-import com.tuiasi.visit.domain.entities.BlockedSlotsEntity;
+import com.tuiasi.visit.domain.entities.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-
-import com.tuiasi.visit.domain.entities.BookingEntity;
-import com.tuiasi.visit.domain.entities.CategoriesEntity;
-import com.tuiasi.visit.domain.entities.UserEntity;
 
 
 public class TestDataUtil {
@@ -111,26 +105,27 @@ public class TestDataUtil {
                 .build();
     }
 
-    public static CategoriesEntity createCategoryA() {
-        return CategoriesEntity.builder()
+    public static CategoryEntity createCategoryA() {
+        return CategoryEntity.builder()
                 .categoryName("Students")
                 .pricePerPerson(0.0)
                 .build();
     }
 
-    public static CategoriesEntity createCategoryB() {
-        return CategoriesEntity.builder()
+    public static CategoryEntity createCategoryB() {
+        return CategoryEntity.builder()
                 .categoryName("Adults")
                 .pricePerPerson(10.0)
                 .build();
     }
 
-    public static CategoriesEntity createCategoryC() {
-        return CategoriesEntity.builder()
+    public static CategoryEntity createCategoryC() {
+        return CategoryEntity.builder()
                 .categoryName("Tourist Group")
                 .pricePerPerson(15.0)
                 .build();
     }
+
     public static BookingEntity createBookingA(final UserEntity userEntity) {
 
         return BookingEntity.builder()
@@ -165,6 +160,28 @@ public class TestDataUtil {
                 .user(userEntity)
                 .totalPrice( 30)
                 .status("unpaid")
+                .build();
+    }
+
+    public static BookingDetailsEntity createBookingDetailsEntityA(BookingEntity bookingEntity, CategoryEntity categoryEntity) {
+
+        BookingDetailsId id = new BookingDetailsId(bookingEntity.getId(), categoryEntity.getId());
+
+        return BookingDetailsEntity.builder()
+                .id(id)
+                .booking(bookingEntity)
+                .category(categoryEntity)
+                .numberOfUsers(3)
+                .build();
+    }
+
+    public static BookingDetailsEntity createBookingDetailsEntity(BookingEntity booking, CategoryEntity category, int persons) {
+        BookingDetailsId id = new BookingDetailsId(booking.getId(), category.getId());
+        return BookingDetailsEntity.builder()
+                .id(id)
+                .booking(booking)
+                .category(category)
+                .numberOfUsers(persons)
                 .build();
     }
 }
