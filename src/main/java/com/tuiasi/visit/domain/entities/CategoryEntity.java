@@ -6,16 +6,13 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Entity
 @Table(name = "categories")
-public class CategoriesEntity {
+public class CategoryEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,7 +20,6 @@ public class CategoriesEntity {
 
     @Column(name="category_name", nullable = false)
     private String categoryName;
-
 
     @Column(name="price_per_person", nullable = false)
     private Double pricePerPerson;
