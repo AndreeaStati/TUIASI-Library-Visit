@@ -19,10 +19,11 @@ public class BlockedSlotsEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="slot_id")
     private Integer id;
 
-    @Column(nullable = false)
-    private LocalDate date;
+    @Column(nullable = false, name = "slot_date")
+    private LocalDate slotDate;
 
     @Column(name="start_time", nullable = false)
     private LocalTime startTime;

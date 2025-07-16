@@ -23,14 +23,14 @@ public class BookingDetailsEntity {
 
     @ManyToOne
     @MapsId("bookingId")
-    @JoinColumn(name="id_booking")
+    @JoinColumn(name="booking_id")
     private BookingEntity booking;
 
     @ManyToOne
     @MapsId("categoryId")
-    @JoinColumn(name="id_category")
+    @JoinColumn(name="category_id", columnDefinition = "TINYINT")
     private CategoryEntity category;
 
-   @Column(name="number_of_users")
+   @Column(name="number_of_users", columnDefinition = "DECIMAL(2)")
     private Integer numberOfUsers;
 }

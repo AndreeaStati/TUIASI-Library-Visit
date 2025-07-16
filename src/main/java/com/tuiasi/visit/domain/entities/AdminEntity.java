@@ -16,13 +16,14 @@ public class AdminEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(columnDefinition = "TINYINT")
+    @Column(columnDefinition = "TINYINT", name="admin_id")
     private Integer id;
 
     @Column(length = 30)
     private String username;
 
-    private String hash_password;
+    @Column(name="password_hash")
+    private String passwordHash;
 
     @Column(length = 100)
     private String email;

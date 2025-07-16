@@ -4,6 +4,7 @@ import com.tuiasi.visit.TestDataUtil;
 import com.tuiasi.visit.domain.entities.BookingEntity;
 import com.tuiasi.visit.domain.entities.PaymentEntity;
 import com.tuiasi.visit.domain.entities.UserEntity;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,11 @@ public class PaymentEntityRepositoryIntegrationTests {
         this.paymentRepository = paymentRepository;
         this.bookingRepository = bookingRepository;
         this.userRepository = userRepository;
+    }
+
+    @BeforeEach
+    void cleanUp() {
+        paymentRepository.deleteAll();
     }
 
     @Test

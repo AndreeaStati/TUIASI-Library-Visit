@@ -2,6 +2,7 @@ package com.tuiasi.visit.repositories;
 
 import com.tuiasi.visit.TestDataUtil;
 import com.tuiasi.visit.domain.entities.BlockedSlotsEntity;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,11 @@ public class BlockedSlotsEntityRepositoryIntegrationTests {
     @Autowired
     public void setBlockedSlotsRepository(BlockedSlotsRepository blockedSlotsRepository) {
         this.blockedSlotsRepository = blockedSlotsRepository;
+    }
+
+    @BeforeEach
+    void cleanUp() {
+        blockedSlotsRepository.deleteAll();
     }
 
     @Test
@@ -57,7 +63,7 @@ public class BlockedSlotsEntityRepositoryIntegrationTests {
         BlockedSlotsEntity blockedSlotEntity = TestDataUtil.createBlockedSlotA();
         blockedSlotsRepository.save(blockedSlotEntity);
 
-        blockedSlotEntity.setDate(LocalDate.parse("2025-07-12"));
+        blockedSlotEntity.setSlotDate(LocalDate.parse("2025-07-12"));
         blockedSlotsRepository.save(blockedSlotEntity);
 
         Optional<BlockedSlotsEntity> result = blockedSlotsRepository.findById(blockedSlotEntity.getId());

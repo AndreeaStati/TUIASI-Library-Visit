@@ -55,7 +55,7 @@ public class BlockedSlotsServiceImpl implements BlockedSlotsService {
         blockedSlotEntity.setId(id);
 
         return blockedSlotsRepository.findById(id).map(existingBlockedSlot -> {
-            Optional.ofNullable(blockedSlotEntity.getDate()).ifPresent(existingBlockedSlot::setDate);
+            Optional.ofNullable(blockedSlotEntity.getSlotDate()).ifPresent(existingBlockedSlot::setSlotDate);
             Optional.ofNullable(blockedSlotEntity.getStartTime()).ifPresent(existingBlockedSlot::setStartTime);
             Optional.ofNullable(blockedSlotEntity.getEndTime()).ifPresent(existingBlockedSlot::setEndTime);
             Optional.ofNullable(blockedSlotEntity.getReason()).ifPresent(existingBlockedSlot::setReason);

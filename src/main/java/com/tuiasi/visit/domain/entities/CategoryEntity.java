@@ -16,11 +16,12 @@ public class CategoryEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="category_id", columnDefinition = "TINYINT")
     private Integer id;
 
     @Column(name="category_name", nullable = false)
     private String categoryName;
 
-    @Column(name="price_per_person", nullable = false)
+    @Column(name="price_per_person", nullable = false, columnDefinition = "DECIMAL(5,2)")
     private Double pricePerPerson;
 }

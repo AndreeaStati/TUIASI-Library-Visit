@@ -16,7 +16,8 @@ import java.time.LocalTime;
 public class BlockedSlotsDto {
     private Integer id;
 
-    private LocalDate date;
+    @JsonProperty("slot_date")
+    private LocalDate slotDate;
 
     @JsonProperty("start_time")
     private LocalTime startTime;

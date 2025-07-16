@@ -2,6 +2,7 @@ package com.tuiasi.visit.repositories;
 
 import com.tuiasi.visit.TestDataUtil;
 import com.tuiasi.visit.domain.entities.UserEntity;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,11 @@ public class UserEntityRepositoryIntegrationTests {
     @Autowired
     public UserEntityRepositoryIntegrationTests( UserRepository userRepository) {
         this.userRepository = userRepository;
+    }
+
+    @BeforeEach
+    void cleanUp() {
+        userRepository.deleteAll();
     }
 
     @Test
