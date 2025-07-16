@@ -1,0 +1,30 @@
+package com.tuiasi.visit.domain.entities;
+
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.time.LocalDate;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+@Entity
+@Table(name = "payments")
+public class PaymentEntity {
+    @Id
+    @GeneratedValue
+    private Integer id;
+
+    @Column(name = "payment_date")
+    private LocalDate paymentDate;
+
+    private Integer amount;
+
+    @OneToOne
+    @JoinColumn(name = "booking_id")
+    private BookingEntity booking;
+}

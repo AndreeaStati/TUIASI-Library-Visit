@@ -7,6 +7,11 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 
+import com.tuiasi.visit.domain.entities.BookingEntity;
+import com.tuiasi.visit.domain.entities.CategoriesEntity;
+import com.tuiasi.visit.domain.entities.UserEntity;
+
+
 public class TestDataUtil {
 
     public static AdminEntity createAdminA() {
@@ -183,5 +188,34 @@ public class TestDataUtil {
                 .category(category)
                 .numberOfUsers(persons)
                 .build();
+
+    public static PaymentEntity createPaymentA(final BookingEntity bookingEntity) {
+
+        return PaymentEntity.builder()
+                .amount(20)
+                .paymentDate(LocalDate.parse("2025-07-09"))
+                .booking(bookingEntity)
+                .build();
+
+    }
+
+    public static PaymentEntity createPaymentB(final BookingEntity bookingEntity) {
+
+        return PaymentEntity.builder()
+                .amount(2023)
+                .paymentDate(LocalDate.parse("2025-07-09"))
+                .booking(bookingEntity)
+                .build();
+
+    }
+
+    public static PaymentEntity createPaymentC(final BookingEntity bookingEntity) {
+
+        return PaymentEntity.builder()
+                .amount(255)
+                .paymentDate(LocalDate.parse("2055-07-09"))
+                .booking(bookingEntity)
+                .build();
+
     }
 }
