@@ -8,7 +8,6 @@ import java.time.LocalTime;
 
 
 import com.tuiasi.visit.domain.entities.BookingEntity;
-import com.tuiasi.visit.domain.entities.CategoriesEntity;
 import com.tuiasi.visit.domain.entities.UserEntity;
 
 
@@ -17,7 +16,7 @@ public class TestDataUtil {
     public static AdminEntity createAdminA() {
         return AdminEntity.builder()
                 .username("admin")
-                .hash_password("admin")
+                .passwordHash("admin")
                 .email("admin@gmail.com")
                 .build();
     }
@@ -25,21 +24,21 @@ public class TestDataUtil {
     public static AdminEntity createAdminB() {
         return AdminEntity.builder()
                 .username("andreea")
-                .hash_password("admin")
-                .email("admin@gmail.com")
+                .passwordHash("andreea")
+                .email("andreea@gmail.com")
                 .build();
     }
     public static AdminEntity createAdminC() {
         return AdminEntity.builder()
                 .username("alin")
-                .hash_password("admin")
-                .email("admin@gmail.com")
+                .passwordHash("alin")
+                .email("alin@gmail.com")
                 .build();
     }
 
     public static BlockedSlotsEntity createBlockedSlotA() {
         return BlockedSlotsEntity.builder()
-                .date(LocalDate.parse("2025-07-09"))
+                .slotDate(LocalDate.parse("2025-07-09"))
                 .startTime(LocalTime.parse("11:00"))
                 .endTime(LocalTime.parse("13:00"))
                 .reason("Intalnire rezervata")
@@ -48,7 +47,7 @@ public class TestDataUtil {
 
     public static BlockedSlotsEntity createBlockedSlotB() {
         return BlockedSlotsEntity.builder()
-                .date(LocalDate.parse("2025-07-10"))
+                .slotDate(LocalDate.parse("2025-07-10"))
                 .startTime(LocalTime.parse("13:00"))
                 .endTime(LocalTime.parse("14:00"))
                 .reason("Mentenanta sistem")
@@ -57,7 +56,7 @@ public class TestDataUtil {
 
     public static BlockedSlotsEntity createBlockedSlotC() {
         return BlockedSlotsEntity.builder()
-                .date(LocalDate.parse("2025-07-11"))
+                .slotDate(LocalDate.parse("2025-07-11"))
                 .startTime(LocalTime.parse("11:00"))
                 .endTime(LocalTime.parse("12:00"))
                 .reason("Blocare administrativa")
@@ -67,7 +66,7 @@ public class TestDataUtil {
     public static BlockedSlotsEntity createTestBlockedSlotEntityA() {
         return BlockedSlotsEntity.builder()
                 .id(1)
-                .date(LocalDate.parse("2025-07-13"))
+                .slotDate(LocalDate.parse("2025-07-13"))
                 .startTime(LocalTime.parse("13:00"))
                 .endTime(LocalTime.parse("14:00"))
                 .reason("Probleme tehnice")
@@ -77,7 +76,7 @@ public class TestDataUtil {
     public static BlockedSlotsDto createTestBlockedSlotDtoA() {
         return BlockedSlotsDto.builder()
                 .id(1)
-                .date(LocalDate.parse("2025-07-13"))
+                .slotDate(LocalDate.parse("2025-07-13"))
                 .startTime(LocalTime.parse("13:00"))
                 .endTime(LocalTime.parse("14:00"))
                 .reason("Probleme tehnice")
@@ -134,7 +133,7 @@ public class TestDataUtil {
     public static BookingEntity createBookingA(final UserEntity userEntity) {
 
         return BookingEntity.builder()
-                .date(LocalDate.parse("2025-07-09"))
+                .bookingDate(LocalDate.parse("2025-07-09"))
                 .startTime(LocalTime.parse("11:00"))
                 .endTime(LocalTime.parse("13:00"))
                 .user(userEntity)
@@ -147,7 +146,7 @@ public class TestDataUtil {
     public static BookingEntity createBookingB(final UserEntity userEntity) {
 
         return BookingEntity.builder()
-                .date(LocalDate.parse("2025-07-09"))
+                .bookingDate(LocalDate.parse("2025-07-09"))
                 .startTime(LocalTime.parse("11:00"))
                 .endTime(LocalTime.parse("13:00"))
                 .user(userEntity)
@@ -159,7 +158,7 @@ public class TestDataUtil {
     public static BookingEntity createBookingC(final UserEntity userEntity) {
 
         return BookingEntity.builder()
-                .date(LocalDate.parse("2026-07-09"))
+                .bookingDate(LocalDate.parse("2026-07-09"))
                 .startTime(LocalTime.parse("14:00"))
                 .endTime(LocalTime.parse("15:00"))
                 .user(userEntity)
@@ -188,6 +187,7 @@ public class TestDataUtil {
                 .category(category)
                 .numberOfUsers(persons)
                 .build();
+    }
 
     public static PaymentEntity createPaymentA(final BookingEntity bookingEntity) {
 

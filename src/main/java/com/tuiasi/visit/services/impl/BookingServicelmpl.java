@@ -49,7 +49,7 @@ public class BookingServicelmpl implements BookingService {
     public BookingEntity updateBooking(Integer id, BookingEntity bookingEntity) {
         bookingEntity.setId(id);
         return bookingRepository.findById(id).map(existingBoking ->{
-            Optional.ofNullable(bookingEntity.getDate()).ifPresent(existingBoking::setDate);
+            Optional.ofNullable(bookingEntity.getBookingDate()).ifPresent(existingBoking::setBookingDate);
             Optional.ofNullable(bookingEntity.getUser()).ifPresent(existingBoking::setUser);
             Optional.ofNullable(bookingEntity.getStatus()).ifPresent(existingBoking::setStatus);
             Optional.ofNullable(bookingEntity.getStartTime()).ifPresent(existingBoking::setStartTime);

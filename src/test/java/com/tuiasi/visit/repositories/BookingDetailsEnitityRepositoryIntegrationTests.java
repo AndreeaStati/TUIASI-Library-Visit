@@ -2,6 +2,7 @@ package com.tuiasi.visit.repositories;
 
 import com.tuiasi.visit.TestDataUtil;
 import com.tuiasi.visit.domain.entities.*;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,11 @@ public class BookingDetailsEnitityRepositoryIntegrationTests {
         this.userRepository = userRepository;
         this.bookingRepository = bookingRepository;
         this.bookingDetailsRepository = bookingDetailsRepository;
+    }
+
+    @BeforeEach
+    void cleanUp() {
+        bookingDetailsRepository.deleteAll(); // sau jdbcTemplate.execute("DELETE FROM admins")
     }
 
     @Test
