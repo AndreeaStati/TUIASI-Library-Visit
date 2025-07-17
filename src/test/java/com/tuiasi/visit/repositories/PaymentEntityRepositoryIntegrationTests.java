@@ -30,6 +30,9 @@ public class PaymentEntityRepositoryIntegrationTests {
     private UserRepository userRepository;
 
     @Autowired
+    private BookingDetailsRepository bookingDetailsRepository;
+
+    @Autowired
     private PaymentEntityRepositoryIntegrationTests(PaymentRepository paymentRepository, BookingRepository bookingRepository, UserRepository userRepository) {
         this.paymentRepository = paymentRepository;
         this.bookingRepository = bookingRepository;
@@ -37,7 +40,7 @@ public class PaymentEntityRepositoryIntegrationTests {
     }
 
     @BeforeEach
-    void cleanUp() {
+    void clearDatabase() {
         paymentRepository.deleteAll();
     }
 

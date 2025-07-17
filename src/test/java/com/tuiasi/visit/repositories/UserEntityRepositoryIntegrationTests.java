@@ -22,14 +22,28 @@ public class UserEntityRepositoryIntegrationTests {
     private UserRepository userRepository;
 
     @Autowired
+    private BookingDetailsRepository bookingDetailsRepository;
+
+    @Autowired
+    private BookingRepository bookingRepository;
+
+    @Autowired
+    private PaymentRepository paymentRepository;
+
+    @Autowired
     public UserEntityRepositoryIntegrationTests( UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
     @BeforeEach
-    void cleanUp() {
+    void clearDatabase() {
+        paymentRepository.deleteAll();
+        bookingDetailsRepository.deleteAll();
+        bookingRepository.deleteAll();
         userRepository.deleteAll();
     }
+
+
 
     @Test
     public void testUserCanBeCreatedAndRecalled() {

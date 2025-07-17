@@ -28,8 +28,8 @@ public class AdminEntityRepositoryIntegrationTests {
     }
 
     @BeforeEach
-    void cleanUp() {
-        adminRepository.deleteAll(); // sau jdbcTemplate.execute("DELETE FROM admins")
+    void clearDatabase() {
+        adminRepository.deleteAll();
     }
 
     @Test

@@ -40,9 +40,10 @@ public class BookingDetailsEnitityRepositoryIntegrationTests {
     }
 
     @BeforeEach
-    void cleanUp() {
-        bookingDetailsRepository.deleteAll(); // sau jdbcTemplate.execute("DELETE FROM admins")
+    void clearDatabase() {
+        bookingDetailsRepository.deleteAll();
     }
+
 
     @Test
     public void testThatBookingDetailsCanBeCreatedAndRecalled(){

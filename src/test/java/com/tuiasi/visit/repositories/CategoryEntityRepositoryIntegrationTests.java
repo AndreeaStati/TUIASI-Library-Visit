@@ -19,7 +19,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class CategoryEntityRepositoryIntegrationTests {
 
+    @Autowired
     private CategoryRepository categoryRepository;
+
+    @Autowired
+    private BookingDetailsRepository bookingDetailsRepository;
 
     @Autowired
     public void setCategoriesRepository(CategoryRepository categoryRepository){
@@ -27,7 +31,8 @@ public class CategoryEntityRepositoryIntegrationTests {
     }
 
     @BeforeEach
-    void cleanUp() {
+    void clearBlockedSlots() {
+        bookingDetailsRepository.deleteAll();
         categoryRepository.deleteAll();
     }
 
