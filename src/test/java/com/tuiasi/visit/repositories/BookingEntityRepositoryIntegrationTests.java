@@ -27,14 +27,23 @@ public class BookingEntityRepositoryIntegrationTests {
     private UserRepository userRepository;
 
     @Autowired
+    private PaymentRepository paymentRepository;
+
+    @Autowired
+    private BookingDetailsRepository bookingDetailsRepository;
+
+    @Autowired
     private BookingEntityRepositoryIntegrationTests(BookingRepository bookingRepository, UserRepository userRepository) {
         this.bookingRepository = bookingRepository;
         this.userRepository = userRepository;
     }
 
+
     @BeforeEach
-    void cleanUp() {
-        bookingRepository.deleteAll(); // sau jdbcTemplate.execute("DELETE FROM admins")
+    void clearDatabase() {
+        paymentRepository.deleteAll();
+        bookingDetailsRepository.deleteAll();
+        bookingRepository.deleteAll();
     }
 
     @Test

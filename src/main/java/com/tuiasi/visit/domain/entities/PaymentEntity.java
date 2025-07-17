@@ -26,7 +26,8 @@ public class PaymentEntity {
     @Column(columnDefinition = "DECIMAL(7,2)")
     private Integer amount;
 
-    @OneToOne
-    @JoinColumn(name = "booking_id")
+    @ManyToOne
+    @JoinColumn(name = "booking_id", nullable = false)
     private BookingEntity booking;
+
 }

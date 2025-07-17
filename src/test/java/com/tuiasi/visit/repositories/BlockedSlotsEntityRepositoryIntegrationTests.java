@@ -29,9 +29,10 @@ public class BlockedSlotsEntityRepositoryIntegrationTests {
     }
 
     @BeforeEach
-    void cleanUp() {
+    void clearDatabase() {
         blockedSlotsRepository.deleteAll();
     }
+
 
     @Test
     public void testBlockedSlotCanBeCreatedAndRecalled() {
