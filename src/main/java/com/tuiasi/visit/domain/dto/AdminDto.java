@@ -1,6 +1,6 @@
 package com.tuiasi.visit.domain.dto;
 
-import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,7 +17,8 @@ public class AdminDto {
 
     private String username;
 
-    private String hash_password;
+    @JsonProperty("password_hash")
+    private String passwordHash;
 
     private String email;
 }

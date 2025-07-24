@@ -16,15 +16,18 @@ import java.time.LocalDate;
 @Table(name = "payments")
 public class PaymentEntity {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="payment_id")
     private Integer id;
 
     @Column(name = "payment_date")
     private LocalDate paymentDate;
 
+    @Column(columnDefinition = "DECIMAL(7,2)")
     private Integer amount;
 
-    @OneToOne
-    @JoinColumn(name = "booking_id")
+    @ManyToOne
+    @JoinColumn(name = "booking_id", nullable = false)
     private BookingEntity booking;
+
 }

@@ -1,7 +1,9 @@
 package com.tuiasi.visit.services.impl;
 
 import com.tuiasi.visit.domain.entities.BookingEntity;
+import com.tuiasi.visit.domain.entities.UserEntity;
 import com.tuiasi.visit.repositories.BookingRepository;
+import com.tuiasi.visit.repositories.UserRepository;
 import com.tuiasi.visit.services.BookingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,13 +19,24 @@ public class BookingServicelmpl implements BookingService {
     @Autowired
     private BookingRepository bookingRepository;
 
-    public BookingServicelmpl(BookingRepository bookingRepository) {
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    public BookingServicelmpl(BookingRepository bookingRepository, UserRepository userRepository) {
         this.bookingRepository = bookingRepository;
+        this.userRepository = userRepository;
     }
 
 
     @Override
     public BookingEntity createBooking(BookingEntity bookingEntity) {
+        Integer userId = bookingEntity.getUser().getId();
+        UserEntity fullUser = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found with ID: " + userId));
+
+        bookingEntity.setUser(fullUser);
+
         return bookingRepository.save(bookingEntity);
     }
 
@@ -36,7 +49,7 @@ public class BookingServicelmpl implements BookingService {
     public BookingEntity updateBooking(Integer id, BookingEntity bookingEntity) {
         bookingEntity.setId(id);
         return bookingRepository.findById(id).map(existingBoking ->{
-            Optional.ofNullable(bookingEntity.getDate()).ifPresent(existingBoking::setDate);
+            Optional.ofNullable(bookingEntity.getBookingDate()).ifPresent(existingBoking::setBookingDate);
             Optional.ofNullable(bookingEntity.getUser()).ifPresent(existingBoking::setUser);
             Optional.ofNullable(bookingEntity.getStatus()).ifPresent(existingBoking::setStatus);
             Optional.ofNullable(bookingEntity.getStartTime()).ifPresent(existingBoking::setStartTime);

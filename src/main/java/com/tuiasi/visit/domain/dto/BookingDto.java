@@ -17,7 +17,8 @@ public class BookingDto {
 
     private Integer id;
 
-    private LocalDate date;
+    @JsonProperty("booking_date")
+    private LocalDate bookingDate;
 
     @JsonProperty("start_time")
     private LocalTime startTime;

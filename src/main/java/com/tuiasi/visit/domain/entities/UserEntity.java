@@ -6,6 +6,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -14,7 +17,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "users")
 public class UserEntity {
     @Id
-    @Column(columnDefinition = "INT")
+    @Column(columnDefinition = "INT", name="user_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
@@ -29,4 +32,5 @@ public class UserEntity {
 
     @Column(name = "phone_number", length = 10)
     private String phoneNumber;
+
 }

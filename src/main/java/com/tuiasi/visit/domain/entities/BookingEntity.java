@@ -5,10 +5,11 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.modelmapper.internal.bytebuddy.implementation.bytecode.ShiftLeft;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
@@ -18,10 +19,12 @@ import java.time.LocalTime;
 @Table(name = "bookings")
 public class BookingEntity {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="booking_id")
     private Integer id;
 
-    private LocalDate date;
+    @Column(name="booking_date")
+    private LocalDate bookingDate;
 
     @Column(name = "start_time")
     private LocalTime startTime;
@@ -29,7 +32,7 @@ public class BookingEntity {
     @Column(name = "end_time")
     private LocalTime endTime;
 
-    @Column(name = "total_price")
+    @Column(name = "total_price", columnDefinition = "DECIMAL(7,2)")
     private Integer totalPrice;
 
     @Column(length = 10)
@@ -41,4 +44,5 @@ public class BookingEntity {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private UserEntity user;
+
 }

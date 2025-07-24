@@ -2,6 +2,8 @@ package com.tuiasi.visit.repositories;
 
 import com.tuiasi.visit.TestDataUtil;
 import com.tuiasi.visit.domain.entities.AdminEntity;
+import jakarta.transaction.Transactional;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,11 @@ public class AdminEntityRepositoryIntegrationTests {
     @Autowired
     public void setAdminRepository(AdminRepository adminRepository) {
         this.adminRepository = adminRepository;
+    }
+
+    @BeforeEach
+    void clearDatabase() {
+        adminRepository.deleteAll();
     }
 
     @Test
