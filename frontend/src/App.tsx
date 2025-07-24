@@ -1,5 +1,5 @@
 import "./App.css";
-import ReservationPage from "./components/Pages/ReservationPage";
+import ReservationPage from "./pages/ReservationPage";
 
 function App() {
   return (
