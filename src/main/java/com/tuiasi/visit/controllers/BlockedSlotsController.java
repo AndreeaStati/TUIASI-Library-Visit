@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 public class BlockedSlotsController {
     private final BlockedSlotsService blockedSlotsService;

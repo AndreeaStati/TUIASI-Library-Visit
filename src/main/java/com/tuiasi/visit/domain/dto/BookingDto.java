@@ -1,5 +1,6 @@
 package com.tuiasi.visit.domain.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,12 +19,15 @@ public class BookingDto {
     private Integer id;
 
     @JsonProperty("booking_date")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate bookingDate;
 
     @JsonProperty("start_time")
+    @JsonFormat(pattern = "HH:mm")
     private LocalTime startTime;
 
     @JsonProperty("end_time")
+    @JsonFormat(pattern = "HH:mm")
     private LocalTime endTime;
 
     @JsonProperty("total_price")
