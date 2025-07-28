@@ -4,6 +4,7 @@ interface CategoriesTableRowProps {
   categoryName: string;
   pricePerPerson: number;
   numberOfPersons: number;
+  numberOfAvailablePlaces?: number;
   onChange: (value: number) => void;
 }
 
@@ -11,6 +12,7 @@ function CategoriesTableRow({
   categoryName,
   pricePerPerson,
   numberOfPersons,
+  numberOfAvailablePlaces = 41,
   onChange,
 }: CategoriesTableRowProps) {
   return (
@@ -24,7 +26,7 @@ function CategoriesTableRow({
             value={numberOfPersons}
             onChange={(e) => onChange(Number(e.target.value))}
           >
-            {Array.from({ length: 41 }, (_, i) => (
+            {Array.from({ length: numberOfAvailablePlaces }, (_, i) => (
               <option key={i} value={i}>
                 {i}
               </option>
