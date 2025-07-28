@@ -1,6 +1,9 @@
 import "./App.css";
 import AdminPage from "./pages/AdminPage";
 import ReservationPage from "./pages/ReservationPage";
+import Home from "./pages/Home"
+import ReservationPage from "./pages/ReservationPage"
+
 
 function App() {
   return (
@@ -9,7 +12,7 @@ function App() {
 
       <AdminPage />
     </>
-  );
+  )
 }
 
-export default App;
+export default App
