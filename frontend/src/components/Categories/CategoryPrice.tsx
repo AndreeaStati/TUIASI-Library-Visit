@@ -21,8 +21,12 @@ const mockCategories: Omit<CategoryItem, "numberOfPersons">[] = [
 
 function CategoryPrice({
   onDataChange,
+  onTotalPeopleChange,
+  freePlaces = 0
 }: {
   onDataChange: (data: CategoryItem[]) => void;
+  onTotalPeopleChange: (data: number) => void;
+  freePlaces?: number;
 }) {
   const [categories, setCategories] = useState<CategoryItem[]>([]);
 
@@ -33,6 +37,7 @@ function CategoryPrice({
     }));
     setCategories(initialized);
     onDataChange(initialized);
+    onTotalPeopleChange(0);
   }, []);
 
   const handlePersonChange = (index: number, value: number) => {
@@ -47,6 +52,12 @@ function CategoryPrice({
     0
   );
 
+  let totalPeople = categories.reduce( 
+    (sum, cat) => sum + cat.numberOfPersons,
+    0
+  );
+
+  onTotalPeopleChange(totalPeople);
   return (
     <Box
       mt={4}
@@ -70,15 +81,23 @@ function CategoryPrice({
         </Table.Header>
 
         <Table.Body>
-          {categories.map((cat, index) => (
-            <CategoriesTableRow
+          {categories.map((cat, index) => {
+            let available = 41
+            if(cat.numberOfPersons == 0)
+              available = 41 - totalPeople - freePlaces;
+            else if(cat.numberOfPersons + 1 > 41 - totalPeople - freePlaces)
+              available = cat.numberOfPersons + 1;
+            else
+              available = 41 - totalPeople - freePlaces + cat.numberOfPersons;
+            return (<CategoriesTableRow
               key={cat.id}
               categoryName={cat.categoryName}
               pricePerPerson={cat.pricePerPerson}
               numberOfPersons={cat.numberOfPersons}
               onChange={(value) => handlePersonChange(index, value)}
-            />
-          ))}
+              numberOfAvailablePlaces={available}
+            />);
+          })}
         </Table.Body>
       </Table.Root>
 
