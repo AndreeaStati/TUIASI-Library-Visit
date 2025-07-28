@@ -1,3 +1,6 @@
+import "./App.css";
+import AdminPage from "./pages/AdminPage";
+import ReservationPage from "./pages/ReservationPage";
 import Home from "./pages/Home"
 import ReservationPage from "./pages/ReservationPage"
 
@@ -5,7 +8,9 @@ import ReservationPage from "./pages/ReservationPage"
 function App() {
   return (
     <>
-      <ReservationPage/>
+      <div>Visit TUIASI</div>
+
+      <AdminPage />
     </>
   )
 }
