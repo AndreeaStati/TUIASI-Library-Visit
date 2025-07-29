@@ -18,7 +18,7 @@ function PaymentCard({isVisible}:PaymentCardProps) {
                 </Card.Description>
             </Card.Body>
             <Card.Footer justifyContent="flex-end">
-                <Button variant="outline" hidden={isVisible}>Plateste</Button>
+                <Button variant="outline" hidden={isVisible} >Plateste</Button>
                 <Button variant="outline" hidden={!isVisible}>Finalizeaza</Button>
                 <Button>Anuleaza</Button>
             </Card.Footer>            

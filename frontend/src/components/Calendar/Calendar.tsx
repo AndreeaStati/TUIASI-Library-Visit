@@ -108,10 +108,7 @@ function Calendar({month, year, highlightedDates, blockedDates, onDateTimeSelect
         const startHour = 10 + parseInt(selectedStartHour);
         const endHour = 10 + parseInt(selectedEndHour);
 
-        const selectedHours = [];
-        for (let hour = startHour; hour < endHour; hour++) {
-        selectedHours.push(hour);
-        }
+        const selectedHours = [startHour, endHour];
 
         onDateTimeSelected({
         date: selectedDateObj,
