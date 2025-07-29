@@ -1,3 +1,4 @@
+import UsersCard from "@/components/User/UsersCard";
 import BlockedSlotsCard from "../components/BlockedSlots/BlockedSlotsCard";
 import BookingsCard from "../components/Bookings/BookingsCard";
 import { Flex } from "@chakra-ui/react";
@@ -15,6 +16,7 @@ function AdminPage() {
       maxW="1500px"
     >
       <BlockedSlotsCard />
+      <UsersCard />
       <BookingsCard />
     </Flex>
   );
