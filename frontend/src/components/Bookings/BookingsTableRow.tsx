@@ -160,6 +160,7 @@ function BookingsTableRow({
     <>
       {/* Main row */}
       <Table.Row>
+        <Table.Cell>{bookingId}</Table.Cell>
         <Table.Cell>
           {isEditing ? (
             <Input

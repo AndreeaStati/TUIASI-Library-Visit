@@ -1,18 +1,13 @@
 import { Card, DataList } from "@chakra-ui/react";
 
-interface UserDetailsProps {
+interface UserProps {
   lastName: string;
   firstName: string;
   email: string;
   phoneNumber: string;
 }
 
-function UserDetails({
-  lastName,
-  firstName,
-  email,
-  phoneNumber,
-}: UserDetailsProps) {
+function UserDetails({ lastName, firstName, email, phoneNumber }: UserProps) {
   return (
     <Card.Root>
       <Card.Header px={"10px"} m={"10px"}>

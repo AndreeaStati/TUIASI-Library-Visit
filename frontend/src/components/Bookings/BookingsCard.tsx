@@ -83,6 +83,7 @@ function BookingsCard() {
         >
           <Table.Header fontSize="16px">
             <Table.Row>
+              <Table.ColumnHeader>Booking ID</Table.ColumnHeader>
               <Table.ColumnHeader>User ID</Table.ColumnHeader>
               <Table.ColumnHeader>Date</Table.ColumnHeader>
               <Table.ColumnHeader>Start time</Table.ColumnHeader>
