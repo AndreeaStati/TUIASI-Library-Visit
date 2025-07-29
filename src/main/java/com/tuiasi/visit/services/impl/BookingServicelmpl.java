@@ -47,18 +47,26 @@ public class BookingServicelmpl implements BookingService {
 
     @Override
     public BookingEntity updateBooking(Integer id, BookingEntity bookingEntity) {
-        bookingEntity.setId(id);
-        return bookingRepository.findById(id).map(existingBoking ->{
-            Optional.ofNullable(bookingEntity.getBookingDate()).ifPresent(existingBoking::setBookingDate);
-            Optional.ofNullable(bookingEntity.getUser()).ifPresent(existingBoking::setUser);
-            Optional.ofNullable(bookingEntity.getStatus()).ifPresent(existingBoking::setStatus);
-            Optional.ofNullable(bookingEntity.getStartTime()).ifPresent(existingBoking::setStartTime);
-            Optional.ofNullable(bookingEntity.getEndTime()).ifPresent(existingBoking::setEndTime);
-            Optional.ofNullable(bookingEntity.getTotalPrice()).ifPresent(existingBoking::setTotalPrice);
-            Optional.ofNullable(bookingEntity.getDetails()).ifPresent(existingBoking::setDetails);
-            return bookingRepository.save(existingBoking);
+        return bookingRepository.findById(id).map(existingBooking -> {
+            Optional.ofNullable(bookingEntity.getBookingDate()).ifPresent(existingBooking::setBookingDate);
+
+            if (bookingEntity.getUser() != null && bookingEntity.getUser().getId() != null) {
+                UserEntity fullUser = userRepository.findById(bookingEntity.getUser().getId())
+                        .orElseThrow(() -> new RuntimeException("User not found with ID: " + bookingEntity.getUser().getId()));
+                existingBooking.setUser(fullUser);
+            }
+
+            Optional.ofNullable(bookingEntity.getStatus()).ifPresent(existingBooking::setStatus);
+            Optional.ofNullable(bookingEntity.getStartTime()).ifPresent(existingBooking::setStartTime);
+            Optional.ofNullable(bookingEntity.getEndTime()).ifPresent(existingBooking::setEndTime);
+            Optional.ofNullable(bookingEntity.getTotalPrice()).ifPresent(existingBooking::setTotalPrice);
+            Optional.ofNullable(bookingEntity.getDetails()).ifPresent(existingBooking::setDetails);
+
+            return bookingRepository.save(existingBooking);
         }).orElseThrow(() -> new RuntimeException("Booking not found"));
     }
+
+
 
     @Override
     public List<BookingEntity> findAllBookings() {

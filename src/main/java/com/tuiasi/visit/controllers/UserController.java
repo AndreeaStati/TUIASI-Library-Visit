@@ -1,6 +1,8 @@
 package com.tuiasi.visit.controllers;
 
+import com.tuiasi.visit.domain.dto.BlockedSlotsDto;
 import com.tuiasi.visit.domain.dto.UserDto;
+import com.tuiasi.visit.domain.entities.BlockedSlotsEntity;
 import com.tuiasi.visit.domain.entities.UserEntity;
 import com.tuiasi.visit.mappers.Mapper;
 import com.tuiasi.visit.services.UserService;
@@ -10,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @CrossOrigin(origins = "http://localhost:5173")
@@ -39,6 +42,15 @@ public class UserController {
         return userEntities.stream()
                 .map(userMapper::mapTo)
                 .collect(Collectors.toList());
+    }
+
+    @GetMapping(path = "/users/{id}")
+    public ResponseEntity<UserDto> getUser(@PathVariable("id") Integer id) {
+        Optional<UserEntity> foundUser = userService.findOne(id);
+        return foundUser.map(userEntity -> {
+            UserDto userDto = userMapper.mapTo(userEntity);
+            return new ResponseEntity<>(userDto, HttpStatus.OK);
+        }).orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @PatchMapping(path = "/users/{id}")

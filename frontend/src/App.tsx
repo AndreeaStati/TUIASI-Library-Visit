@@ -1,13 +1,16 @@
-import Home from "./pages/Home"
-import ReservationPage from "./pages/ReservationPage"
-
+import "./App.css";
+import AdminPage from "./pages/AdminPage";
+import ReservationPage from "./pages/ReservationPage";
+import Home from "./pages/Home";
 
 function App() {
   return (
     <>
-      <ReservationPage/>
+      <div>Visit TUIASI</div>
+
+      <AdminPage />
     </>
-  )
+  );
 }
 
-export default App
+export default App;

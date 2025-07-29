@@ -1,37 +1,36 @@
-import { Button, Input, Table, Portal, Menu } from "@chakra-ui/react";
+import { Button, Input, Menu, Portal, Table } from "@chakra-ui/react";
 import { useState } from "react";
 
-interface BlockedSlotsTableRowProps {
-  slotDate: Date;
-  startTime: string; // era Date, acum string
-  endTime: string;
-  reason: string;
+interface UsersTableRowProps {
+  userId: number;
+  lastName: string;
+  firstName: string;
+  email: string;
+  phoneNumber: string;
   onUpdate: (data: {
-    slotDate: Date;
-    startTime: string; // era Date, acum string
-    endTime: string;
-    reason: string;
+    lastName: string;
+    firstName: string;
+    email: string;
+    phoneNumber: string;
   }) => void;
   onDelete: () => void;
 }
 
-function BlockedSlotsTableRow({
-  slotDate,
-  startTime,
-  endTime,
-  reason,
+function UsersTableRow({
+  userId,
+  lastName,
+  firstName,
+  email,
+  phoneNumber,
   onUpdate,
   onDelete,
-}: BlockedSlotsTableRowProps) {
+}: UsersTableRowProps) {
   const [isEditing, setIsEditing] = useState(false);
   const [editValues, setEditValues] = useState(() => ({
-    slotDate:
-      slotDate instanceof Date && !isNaN(slotDate.getTime())
-        ? slotDate.toISOString().substring(0, 10)
-        : "",
-    startTime,
-    endTime,
-    reason,
+    lastName,
+    firstName,
+    email,
+    phoneNumber,
   }));
 
   const handleChange = (field: string, value: string) => {
@@ -41,60 +40,55 @@ function BlockedSlotsTableRow({
   const handleSave = () => {
     setIsEditing(false);
     onUpdate({
-      slotDate: new Date(editValues.slotDate),
-      startTime: editValues.startTime, // string "HH:mm"
-      endTime: editValues.endTime,
-      reason: editValues.reason,
+      lastName: editValues.lastName,
+      firstName: editValues.firstName,
+      email: editValues.email,
+      phoneNumber: editValues.phoneNumber,
     });
   };
 
   return (
     <Table.Row>
+      <Table.Cell>{userId}</Table.Cell>
       <Table.Cell>
         {isEditing ? (
           <Input
-            type="date"
-            value={editValues.slotDate}
-            onChange={(e) => handleChange("slotDate", e.target.value)}
-            size="sm"
+            value={editValues.lastName}
+            onChange={(e) => handleChange("lastName", e.target.value)}
           />
         ) : (
-          slotDate.toLocaleDateString()
+          lastName
+        )}
+      </Table.Cell>
+
+      <Table.Cell>
+        {isEditing ? (
+          <Input
+            value={editValues.firstName}
+            onChange={(e) => handleChange("firstName", e.target.value)}
+          />
+        ) : (
+          firstName
         )}
       </Table.Cell>
       <Table.Cell>
         {isEditing ? (
           <Input
-            type="time"
-            value={editValues.startTime}
-            onChange={(e) => handleChange("startTime", e.target.value)}
-            size="sm"
+            value={editValues.email}
+            onChange={(e) => handleChange("email", e.target.value)}
           />
         ) : (
-          startTime?.slice(0, 5) || "-"
+          email
         )}
       </Table.Cell>
       <Table.Cell>
         {isEditing ? (
           <Input
-            type="time"
-            value={editValues.endTime}
-            onChange={(e) => handleChange("endTime", e.target.value)}
-            size="sm"
+            value={editValues.phoneNumber}
+            onChange={(e) => handleChange("phoneNumber", e.target.value)}
           />
         ) : (
-          endTime?.slice(0, 5) || "-"
-        )}
-      </Table.Cell>
-      <Table.Cell>
-        {isEditing ? (
-          <Input
-            value={editValues.reason}
-            onChange={(e) => handleChange("reason", e.target.value)}
-            size="sm"
-          />
-        ) : (
-          reason
+          phoneNumber
         )}
       </Table.Cell>
       <Table.Cell>
@@ -126,7 +120,7 @@ function BlockedSlotsTableRow({
                   <Menu.Item value="update" onSelect={() => setIsEditing(true)}>
                     Update
                   </Menu.Item>
-                  <Menu.Item value="delete" onSelect={onDelete} color="red.500">
+                  <Menu.Item value="delete" color="red.500" onSelect={onDelete}>
                     Delete
                   </Menu.Item>
                 </Menu.Content>
@@ -139,4 +133,4 @@ function BlockedSlotsTableRow({
   );
 }
 
-export default BlockedSlotsTableRow;
+export default UsersTableRow;
