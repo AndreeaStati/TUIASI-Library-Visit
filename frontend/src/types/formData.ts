@@ -4,6 +4,6 @@ export type FormData = {
     email: string;
     phone: string;
     institution: string;
-    observations: string;
+    observations?: string;
     language: string;
 };

@@ -1,23 +1,8 @@
 import { useEffect, useState } from "react";
 import { Box, Table, Text } from "@chakra-ui/react";
 import CategoriesTableRow from "./CategoriesTableRow";
-
-interface CategoryItem {
-  id: number;
-  categoryName: string;
-  pricePerPerson: number;
-  numberOfPersons: number;
-}
-
-const mockCategories: Omit<CategoryItem, "numberOfPersons">[] = [
-  { id: 1, categoryName: "Adults", pricePerPerson: 10 },
-  { id: 2, categoryName: "Tourist Group*", pricePerPerson: 15 },
-  { id: 3, categoryName: "School children", pricePerPerson: 5 },
-  { id: 4, categoryName: "Students", pricePerPerson: 5 },
-  { id: 5, categoryName: "Pensioners", pricePerPerson: 5 },
-  { id: 6, categoryName: "Free access**", pricePerPerson: 0 },
-  { id: 7, categoryName: "Filming/photography**", pricePerPerson: 15 },
-];
+import { getCategories } from "@/api/ReservationPageApi";
+import type { CategoryItem } from "@/types/categoryItem";
 
 function CategoryPrice({
   onDataChange,
@@ -31,13 +16,22 @@ function CategoryPrice({
   const [categories, setCategories] = useState<CategoryItem[]>([]);
 
   useEffect(() => {
-    const initialized = mockCategories.map((item) => ({
-      ...item,
-      numberOfPersons: 0,
-    }));
-    setCategories(initialized);
-    onDataChange(initialized);
-    onTotalPeopleChange(0);
+  getCategories()
+    .then((data) => {
+      const initialized = data.map((item: any) => ({
+        id: item.id,
+        categoryName: item.category_name,
+        pricePerPerson: item.price_per_person,
+        numberOfPersons: 0,
+      }));
+      console.log(initialized);
+      setCategories(initialized);
+      onDataChange(initialized);
+      onTotalPeopleChange(0);
+    })
+    .catch((error) => {
+      console.error("Eroare la încărcarea categoriilor:", error);
+    });
   }, []);
 
   const handlePersonChange = (index: number, value: number) => {
@@ -56,8 +50,10 @@ function CategoryPrice({
     (sum, cat) => sum + cat.numberOfPersons,
     0
   );
-
-  onTotalPeopleChange(totalPeople);
+  useEffect(() => {
+  const total = categories.reduce((sum, cat) => sum + cat.numberOfPersons, 0);
+  onTotalPeopleChange(total);
+  }, [categories]);
   return (
     <Box
       mt={4}

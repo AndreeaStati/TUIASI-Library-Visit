@@ -2,6 +2,7 @@ import { ButtonGroup, Button, Flex, Heading, Image, Box } from "@chakra-ui/react
 import stema from "../../assets/stema.png"
 import background1 from "../../assets/background_header1.jpg"
 import logo from "../../assets/logo1.png"
+import { Link } from "react-router-dom";
 
 type HeaderProps = {
     title?: string;
@@ -12,7 +13,7 @@ function Header({ title, optionalButton }: HeaderProps) {
     let backButton = null;
     if (optionalButton)
         backButton = <Button fontFamily="'Cinzel', serif" variant="outline" color="white" _hover={{ color: "black" }}
-            alignSelf="flex-start">Inapoi</Button>;
+            alignSelf="flex-start"><Link to="/">Inapoi</Link></Button>;
     return (
         <Flex direction="column" backgroundImage={`url(${background1})`}
             backgroundSize="cover" w="100%" backgroundPosition="center" paddingTop="30px"

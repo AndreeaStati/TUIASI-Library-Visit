@@ -8,15 +8,11 @@ import { StepsForm } from "@/components/StepsForm";
 import { Calendar } from "@/components/Calendar";
 import { Footer } from "@/components/Footer";
 import { PaymentCard } from "@/components/PaymentCard";
+import { submitReservation } from "../api/ReservationPageApi";
 import type { DateTime } from "@/types/calendar";
 import type { FormData } from "@/types/formData";
+import type { CategoryItem } from "@/types/categoryItem";
 
-interface CategoryItem {
-  id: number;
-  categoryName: string;
-  pricePerPerson: number;
-  numberOfPersons: number;
-}
 
 function ReservationPage() {
   const [categoryData, setCategoryData] = useState<CategoryItem[]>([]);
@@ -33,14 +29,19 @@ function ReservationPage() {
   const [calendarData, setCalendarData] = useState<DateTime>();
   const [step, setStep] = useState<number>(0);
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     console.log({
       categories: categoryData,
       personal: formData,
       calendar: calendarData,
     });
-
-    // TODO: Validare + trimitere POST
+    try{
+      await submitReservation(categoryData, calendarData!, formData);
+    }
+    catch(error){
+      console.log(error);
+    }
+    
   };
 
   const requiredFields = ["lastName", "firstName", "email", "phone"] as const;
@@ -101,6 +102,7 @@ function ReservationPage() {
             </Steps.Content>
             <Steps.CompletedContent>
               <PaymentCard isVisible={totalPrice === 0}/>
+              <Button onClick={handleSubmit}>Finalizeaza</Button>
             </Steps.CompletedContent>
           </Box>
           
