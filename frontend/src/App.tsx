@@ -6,9 +6,7 @@ import Home from "./pages/Home";
 function App() {
   return (
     <>
-      <div>Visit TUIASI</div>
-
-      <AdminPage />
+      <ReservationPage/>
     </>
   );
 }
