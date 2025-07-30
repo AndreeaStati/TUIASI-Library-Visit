@@ -4,6 +4,7 @@ import {Header} from "../components/Header"
 import {Footer} from "../components/Footer"
 import {Calendar} from "../components/Calendar"
 import type { DateTime } from "../types/calendar"
+import { Link } from "react-router-dom"
 
 type HomeProps = {
     optionalButton?: boolean
@@ -18,6 +19,7 @@ function Home({optionalButton}: HomeProps) {
         <Flex direction="column" alignItems="center">
             <Header optionalButton={optionalButton} title="Vizitează Universitatea Tehnică „Gheorghe Asachi” din Iași "/>
             <ColorModeButton />
+            <Link to="/reservation">Catre rezervare</Link>
             <Footer />
         </Flex>
     )    

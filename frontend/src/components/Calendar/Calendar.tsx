@@ -124,7 +124,7 @@ function Calendar({month, year, highlightedDates, blockedDates, onDateTimeSelect
                     Selectați data la care doriți să faceți programarea.
                 </Card.Title>
                 <Card.Description>
-                    <Text color="yellow.500">*Există deja rezervări în această zi, dar mai sunt locuri disponibile</Text>
+                    <Text as="span" color="yellow.500">*Există deja rezervări în această zi, dar mai sunt locuri disponibile</Text>
                 </Card.Description>
             </Card.Header>
             <Card.Body gap="10px">
