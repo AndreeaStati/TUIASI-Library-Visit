@@ -1,8 +1,7 @@
-import { Avatar, Card, Table } from "@chakra-ui/react";
+import { Card, Table } from "@chakra-ui/react";
 import UsersTableRow from "./UsersTableRow";
-import { useEffect, useReducer, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
-import userIcon from "@/assets/user-icon.png";
 
 interface UserProps {
   id: number;
@@ -61,13 +60,14 @@ function UsersCard() {
       .catch((err) => console.error("Eroare la update:", err));
   };
 
-  const handleDelete = (id: number) => {
-    axios
-      .delete(`http://localhost:8080/users/${id}`)
-      .then(() => {
-        setUsers((prev) => prev.filter((user) => user.id !== id));
-      })
-      .catch((err) => console.error("Eroare la delete:", err));
+  const handleDelete = async (id: number): Promise<void> => {
+    try {
+      await axios.delete(`http://localhost:8080/users/${id}`);
+      setUsers((prev) => prev.filter((user) => user.id !== id));
+    } catch (err) {
+      console.error("Eroare la delete:", err);
+      throw err; // propagă pentru a ajunge în catch-ul din UsersTableRow
+    }
   };
 
   return (

@@ -1,4 +1,5 @@
 import {
+  Alert,
   Button,
   Flex,
   Input,
@@ -44,7 +45,7 @@ interface BookingsTableRowProps {
     status: string;
     details: string;
   }) => void;
-  onDelete: () => void;
+  onDelete: () => Promise<void>;
 }
 
 function BookingsTableRow({
@@ -67,6 +68,7 @@ function BookingsTableRow({
     email: string;
     phoneNumber: string;
   }>(null);
+  const [errorMessage, setErrorMessage] = useState("");
 
   // Fetch user data with mapping for camelCase keys
   useEffect(() => {
@@ -155,6 +157,22 @@ function BookingsTableRow({
       status: editValues.status,
       details: editValues.details,
     });
+  };
+
+  const handleDeleteClick = async () => {
+    const confirmDelete = window.confirm(
+      `Ești sigur că vrei să ștergi rezervarea cu id-ul ${bookingId} ?`
+    );
+    if (!confirmDelete) return;
+
+    try {
+      await onDelete();
+      setErrorMessage(""); // reset dacă e cazul
+    } catch (err) {
+      setErrorMessage(
+        "Utilizatorul nu poate fi șters deoarece are rezervări active. Șterge mai întâi rezervările asociate."
+      );
+    }
   };
   return (
     <>
@@ -306,7 +324,7 @@ function BookingsTableRow({
                     </Menu.Item>
                     <Menu.Item
                       value="delete"
-                      onSelect={onDelete}
+                      onSelect={handleDeleteClick}
                       style={{ color: "red" }}
                     >
                       Delete
@@ -328,7 +346,7 @@ function BookingsTableRow({
       {/* Expanded row below the current one */}
       {isExpanded && (
         <Table.Row key={`expanded-${bookingId}`}>
-          <Table.Cell colSpan={8}>
+          <Table.Cell colSpan={9}>
             <Flex
               direction="row"
               justifyContent="flex-start"
@@ -338,12 +356,7 @@ function BookingsTableRow({
               alignItems="flex-start"
               p="30px"
             >
-              {/* TODO: Pass real bookingId, categoryId, numberOfPersons from props or context */}
-              <BookingDetails
-                bookingId={1}
-                categoryId={2}
-                numberOfPersons={3}
-              />
+              <BookingDetails bookingId={bookingId} />
               {userData ? (
                 <UserDetails
                   lastName={userData.lastName}
@@ -355,6 +368,20 @@ function BookingsTableRow({
                 <Text color="gray.500">Loading user info...</Text>
               )}
             </Flex>
+          </Table.Cell>
+        </Table.Row>
+      )}
+
+      {errorMessage && (
+        <Table.Row>
+          <Table.Cell colSpan={9}>
+            <Alert.Root status="error" mt={2}>
+              <Alert.Indicator />
+              <Alert.Content>
+                <Alert.Title>Eroare la stergere</Alert.Title>
+                <Alert.Description> {errorMessage}</Alert.Description>
+              </Alert.Content>
+            </Alert.Root>
           </Table.Cell>
         </Table.Row>
       )}

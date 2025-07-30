@@ -62,4 +62,24 @@ public class BookingDetailsServiceImpl implements BookingDetailsService {
         bookingDetailsRepository.deleteById(id);
     }
 
+    @Override
+    public List<BookingDetailsEntity> findByBookingId(Integer bookingId) {
+        return bookingDetailsRepository.findByIdBookingId(bookingId);
+    }
+
+
+
+    @Override
+    public List<BookingDetailsEntity> updateAllByBookingId(Integer bookingId, List<BookingDetailsEntity> newDetails) {
+        List<BookingDetailsEntity> existing = bookingDetailsRepository.findByBookingId(bookingId);
+        bookingDetailsRepository.deleteAll(existing);
+
+        Iterable<BookingDetailsEntity> savedIterable = bookingDetailsRepository.saveAll(newDetails);
+        // convertește Iterable în List
+        List<BookingDetailsEntity> savedList = StreamSupport.stream(savedIterable.spliterator(), false)
+                .collect(Collectors.toList());
+        return savedList;
+    }
+
+
 }

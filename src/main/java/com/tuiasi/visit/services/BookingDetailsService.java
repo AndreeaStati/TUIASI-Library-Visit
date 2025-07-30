@@ -18,4 +18,8 @@ public interface BookingDetailsService {
     BookingDetailsEntity partialUpdate(BookingDetailsId id, BookingDetailsEntity bookingDetailsEntity);
 
     void delete(BookingDetailsId id);
+
+    List<BookingDetailsEntity> findByBookingId(Integer bookingId);
+
+    List<BookingDetailsEntity> updateAllByBookingId(Integer bookingId, List<BookingDetailsEntity> updatedEntities);
 }

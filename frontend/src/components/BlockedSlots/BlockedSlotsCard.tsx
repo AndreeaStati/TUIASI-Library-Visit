@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import BlockedSlotsTableRow from "../BlockedSlots/BlockedSlotsTableRow";
-import { Card, Table } from "@chakra-ui/react";
+import { Button, Card, Table } from "@chakra-ui/react";
 import axios from "axios";
 
 interface BlockedSlotProps {
@@ -13,6 +13,7 @@ interface BlockedSlotProps {
 
 function BlockedSlotsCard() {
   const [slots, setSlots] = useState<BlockedSlotProps[]>([]);
+  const [isAdding, setIsAdding] = useState(false);
 
   // fetch la backend
   useEffect(() => {
@@ -39,6 +40,34 @@ function BlockedSlotsCard() {
       })
       .catch((error) => console.error("Eroare la fetch:", error));
   }, []);
+
+  const handleAdd = (newSlot: {
+    slotDate: Date;
+    startTime: string;
+    endTime: string;
+    reason: string;
+  }) => {
+    const payload = {
+      slot_date: newSlot.slotDate.toISOString().substring(0, 10),
+      start_time: newSlot.startTime,
+      end_time: newSlot.endTime,
+      reason: newSlot.reason,
+    };
+
+    axios
+      .post("http://localhost:8080/blocked-slots", payload)
+      .then((res) => {
+        const addedSlot = {
+          ...res.data,
+          slotDate: new Date(res.data.slot_date),
+          startTime: res.data.start_time,
+          endTime: res.data.end_time,
+        };
+        setSlots((prev) => [...prev, addedSlot]);
+        setIsAdding(false);
+      })
+      .catch((err) => console.error("Eroare la adăugare:", err));
+  };
 
   const handleUpdate = (id: number, updated: any) => {
     const updatedDto = {
@@ -83,6 +112,14 @@ function BlockedSlotsCard() {
     <Card.Root colorPalette={"blue"} variant={"elevated"}>
       <Card.Header>
         <Card.Title mt="2">Blocked Slots</Card.Title>
+        <Button
+          size="sm"
+          ml="auto"
+          colorScheme="blue"
+          onClick={() => setIsAdding(true)}
+        >
+          Add Slot
+        </Button>
       </Card.Header>
 
       <Card.Body gap="2">
@@ -117,6 +154,18 @@ function BlockedSlotsCard() {
                 onDelete={() => handleDelete(slot.id)}
               />
             ))}
+
+            {isAdding && (
+              <BlockedSlotsTableRow
+                slotDate={new Date()}
+                startTime=""
+                endTime=""
+                reason=""
+                onUpdate={(newSlot) => handleAdd(newSlot)}
+                onDelete={() => setIsAdding(false)}
+                isNew
+              />
+            )}
           </Table.Body>
         </Table.Root>
       </Card.Body>
