@@ -106,4 +106,33 @@ public class BookingDetailsController {
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
+    @GetMapping("/booking-details/{bookingId}")
+    public ResponseEntity<List<BookingDetailsDto>> getBookingDetailsByBookingId(@PathVariable Integer bookingId) {
+        List<BookingDetailsEntity> bookingDetailsEntities = bookingDetailsService.findByBookingId(bookingId);
+        List<BookingDetailsDto> dtos = bookingDetailsEntities.stream()
+                .map(bookingDetailsMapper::mapTo)
+                .collect(Collectors.toList());
+
+        return new ResponseEntity<>(dtos, HttpStatus.OK);
+    }
+
+    @PutMapping("/booking-details/{bookingId}")
+    public ResponseEntity<List<BookingDetailsDto>> updateBookingDetailsByBookingId(
+            @PathVariable Integer bookingId,
+            @RequestBody List<BookingDetailsDto> updatedDetails) {
+
+        List<BookingDetailsEntity> updatedEntities = updatedDetails.stream()
+                .map(bookingDetailsMapper::mapFrom)
+                .peek(e -> e.setId(new BookingDetailsId(bookingId, e.getId().getCategoryId())))
+                .collect(Collectors.toList());
+
+        List<BookingDetailsEntity> savedEntities = bookingDetailsService.updateAllByBookingId(bookingId, updatedEntities);
+
+        List<BookingDetailsDto> savedDtos = savedEntities.stream()
+                .map(bookingDetailsMapper::mapTo)
+                .collect(Collectors.toList());
+
+        return new ResponseEntity<>(savedDtos, HttpStatus.OK);
+    }
+
 }

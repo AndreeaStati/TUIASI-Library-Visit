@@ -13,6 +13,7 @@ interface BlockedSlotsTableRowProps {
     reason: string;
   }) => void;
   onDelete: () => void;
+  isNew?: boolean;
 }
 
 function BlockedSlotsTableRow({
@@ -22,8 +23,9 @@ function BlockedSlotsTableRow({
   reason,
   onUpdate,
   onDelete,
+  isNew,
 }: BlockedSlotsTableRowProps) {
-  const [isEditing, setIsEditing] = useState(false);
+  const [isEditing, setIsEditing] = useState(isNew ?? false);
   const [editValues, setEditValues] = useState(() => ({
     slotDate:
       slotDate instanceof Date && !isNaN(slotDate.getTime())
@@ -101,13 +103,19 @@ function BlockedSlotsTableRow({
         {isEditing ? (
           <>
             <Button size="sm" colorScheme="green" onClick={handleSave}>
-              Save
+              {isNew ? "Add" : "Save"}
             </Button>
             <Button
               size="sm"
               ml={2}
               colorScheme="gray"
-              onClick={() => setIsEditing(false)}
+              onClick={() => {
+                if (isNew) {
+                  onDelete(); // anulare adăugare
+                } else {
+                  setIsEditing(false);
+                }
+              }}
             >
               Cancel
             </Button>

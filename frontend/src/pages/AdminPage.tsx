@@ -2,6 +2,7 @@ import UsersCard from "@/components/User/UsersCard";
 import BlockedSlotsCard from "../components/BlockedSlots/BlockedSlotsCard";
 import BookingsCard from "../components/Bookings/BookingsCard";
 import { Flex } from "@chakra-ui/react";
+import CategoriesCard from "@/components/Categories/CategoriesCard";
 
 function AdminPage() {
   return (
@@ -15,6 +16,7 @@ function AdminPage() {
       width="100%"
       maxW="1500px"
     >
+      <CategoriesCard />
       <BlockedSlotsCard />
       <UsersCard />
       <BookingsCard />

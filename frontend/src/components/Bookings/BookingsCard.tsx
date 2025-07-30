@@ -1,10 +1,11 @@
-import { Card, Table } from "@chakra-ui/react";
+import { Alert, Card, Table } from "@chakra-ui/react";
 import BookingsTableRow from "../Bookings/BookingsTableRow";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
 function BookingsCard() {
   const [bookings, setBookings] = useState<any[]>([]);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   useEffect(() => {
     axios.get("http://localhost:8080/bookings").then((res) => {
@@ -62,10 +63,14 @@ function BookingsCard() {
       });
   };
 
-  const handleDelete = (id: number) => {
-    axios.delete(`http://localhost:8080/bookings/${id}`).then(() => {
+  const handleDelete = async (id: number): Promise<void> => {
+    try {
+      await axios.delete(`http://localhost:8080/bookings/${id}`);
       setBookings((prev) => prev.filter((b) => b.id !== id));
-    });
+    } catch (err) {
+      console.error("Eroare la delete:", err);
+      throw err; // propagă pentru a ajunge în catch-ul din UsersTableRow
+    }
   };
 
   return (
