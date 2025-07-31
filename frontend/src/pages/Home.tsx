@@ -42,11 +42,11 @@ function Home({optionalButton}: HomeProps) {
     if (!translation) return <div>Loading...</div>;
     
     return (
-        <Flex direction="column" alignItems="center">
+        <Flex direction="column" alignItems="center" gap = "20px">
             <Header optionalButton={optionalButton} title={translation.headerTitle1}/>
             <ColorModeButton />
             <Box maxW={["90%", "70%"]}>
-                <ContentBlock title={title} description={description} buttonText="Vizitează TUIASI acum" />
+                <ContentBlock title={translation.article1Title} description={translation.article1Text} buttonText={translation.article1ButtonText} />
             </Box>
             <Footer />
         </Flex>

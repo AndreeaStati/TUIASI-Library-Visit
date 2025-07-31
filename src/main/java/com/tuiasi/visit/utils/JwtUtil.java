@@ -15,12 +15,15 @@ public class JwtUtil {
 
     public String generateToken(String username) {
         SecretKey key = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
-        return Jwts.builder()
+        String token =  Jwts.builder()
                 .setSubject(username)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + expiration))
                 .signWith(SignatureAlgorithm.HS256, key)
                 .compact();
+        
+
+        return token;
     }
 
     public String extractUsername(String token) {
