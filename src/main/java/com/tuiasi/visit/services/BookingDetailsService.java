@@ -3,7 +3,9 @@ package com.tuiasi.visit.services;
 import com.tuiasi.visit.domain.entities.BookingDetailsEntity;
 import com.tuiasi.visit.domain.entities.BookingDetailsId;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public interface BookingDetailsService {
@@ -22,4 +24,8 @@ public interface BookingDetailsService {
     List<BookingDetailsEntity> findByBookingId(Integer bookingId);
 
     List<BookingDetailsEntity> updateAllByBookingId(Integer bookingId, List<BookingDetailsEntity> updatedEntities);
+
+    List<Map<String, Object>> getBookingDetailsSummaryByDate(LocalDate date);
+
+    List<Map<String, Object>> getBookingDetailsSummaryAll();
 }

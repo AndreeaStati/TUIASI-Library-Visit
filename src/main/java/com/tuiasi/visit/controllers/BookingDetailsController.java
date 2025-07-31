@@ -10,7 +10,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -134,5 +137,23 @@ public class BookingDetailsController {
 
         return new ResponseEntity<>(savedDtos, HttpStatus.OK);
     }
+
+    @GetMapping("/booking-details/date/{date}")
+    public ResponseEntity<List<Map<String, Object>>> getBookingDetailsSummaryByDate(@PathVariable String date) {
+        try {
+            LocalDate parsedDate = LocalDate.parse(date);
+            List<Map<String, Object>> summary = bookingDetailsService.getBookingDetailsSummaryByDate(parsedDate);
+            return ResponseEntity.ok(summary);
+        } catch (DateTimeParseException e) {
+            return ResponseEntity.badRequest().body(null);
+        }
+    }
+
+    @GetMapping("/booking-details/summary/all")
+    public ResponseEntity<List<Map<String, Object>>> getBookingDetailsSummaryAll() {
+        List<Map<String, Object>> summary = bookingDetailsService.getBookingDetailsSummaryAll();
+        return ResponseEntity.ok(summary);
+    }
+
 
 }
