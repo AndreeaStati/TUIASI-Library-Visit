@@ -33,9 +33,9 @@ function Header({ title, optionalButton }: HeaderProps) {
                 )}
                 <Flex gap="10px" alignSelf="flex-end" >
                     <Button fontFamily="'Cinzel', serif" color="white" _hover={{ color: "black" }} 
-                    onClick={() => {setLang('ro'); window.location.reload();}}>Romana</Button>
+                    onClick={() => {localStorage.setItem("lang", "ro"); window.location.reload();}}>Romana</Button>
                     <Button fontFamily="'Cinzel', serif" color="white" _hover={{ color: "black" }}
-                    onClick={() => {setLang('en'); window.location.reload();}}>English</Button>
+                    onClick={() => {localStorage.setItem("lang", "en"); window.location.reload();}}>English</Button>
                 </Flex>
             </ButtonGroup>
             <Flex direction={{ base: "column", lg: "row" }} alignItems="center"
