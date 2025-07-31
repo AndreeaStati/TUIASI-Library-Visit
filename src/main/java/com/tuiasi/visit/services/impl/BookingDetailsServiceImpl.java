@@ -7,7 +7,10 @@ import com.tuiasi.visit.services.BookingDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -79,6 +82,35 @@ public class BookingDetailsServiceImpl implements BookingDetailsService {
         List<BookingDetailsEntity> savedList = StreamSupport.stream(savedIterable.spliterator(), false)
                 .collect(Collectors.toList());
         return savedList;
+    }
+
+    @Override
+    public List<Map<String, Object>> getBookingDetailsSummaryByDate(LocalDate date) {
+        List<Object[]> results = bookingDetailsRepository.findBookingSummaryByDate(java.sql.Date.valueOf(date));
+
+        return results.stream().map(record -> {
+            Map<String, Object> map = new HashMap<>();
+            map.put("bookingDate", record[0]);
+            map.put("startTime", record[1]);
+            map.put("endTime", record[2]);
+            map.put("totalUsers", record[3]);
+            return map;
+        }).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Map<String, Object>> getBookingDetailsSummaryAll() {
+        List<Object[]> results = bookingDetailsRepository.findBookingSummaryAll();
+
+        return results.stream().map(record -> {
+            Map<String, Object> map = new HashMap<>();
+            map.put("bookingId", record[0]);
+            map.put("bookingDate", record[1]);
+            map.put("startTime", record[2]);
+            map.put("endTime", record[3]);
+            map.put("totalUsers", record[4]);
+            return map;
+        }).collect(Collectors.toList());
     }
 
 
