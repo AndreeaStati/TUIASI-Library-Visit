@@ -13,6 +13,7 @@ import type { BookingSummary, DateTime } from "@/types/calendar";
 import type { FormData } from "@/types/formData";
 import type { CategoryItem } from "@/types/categoryItem";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function ReservationPage() {
   const [categoryData, setCategoryData] = useState<CategoryItem[]>([]);
@@ -81,7 +82,7 @@ function ReservationPage() {
 
       const dateKey = `${year}-${month}-${day}`;
       const date = new Date(year, month - 1, day);
-      const isGray = total >= 40;
+      const isGray = (total + totalPeople) >= 40;
 
       if (!tempMap.has(dateKey)) {
         tempMap.set(dateKey, {
@@ -108,6 +109,8 @@ function ReservationPage() {
 
     return dateTimeArray;
   }
+
+  const dateTimeArray: DateTime[] = [];
 
   useEffect(() => {
     const fetchData = async () => {
@@ -145,9 +148,7 @@ function ReservationPage() {
             blockedKeys.add(key);
           }
         }
-
         // 3. Construiește array-ul final
-        const dateTimeArray: DateTime[] = [];
 
         const addToDateTimeArray = (
           key: string,
@@ -190,7 +191,7 @@ function ReservationPage() {
         // 5. Adaugă booking-urile, doar dacă nu sunt deja blocate
         for (const [key, total] of slotsByDateHour.entries()) {
           if (blockedKeys.has(key)) continue;
-          const color = total >= 40 ? "gray" : "yellow";
+          const color = (total + totalPeople >= 40) ? "gray" : "yellow";
           addToDateTimeArray(key, color);
         }
 
@@ -201,18 +202,27 @@ function ReservationPage() {
     };
 
     fetchData();
-  }, []);
+  }, [totalPeople]);
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const navigate = useNavigate();
 
   const handleSubmit = async () => {
+    setIsSubmitting(true);
     console.log({
       categories: categoryData,
       personal: formData,
       calendar: calendarData,
     });
+    
     try {
       await submitReservation(categoryData, calendarData!, formData);
+      navigate("/finalized");
     } catch (error) {
       console.log(error);
+    }finally {
+    setIsSubmitting(false);
     }
   };
 
@@ -241,8 +251,10 @@ function ReservationPage() {
     return acc + item.pricePerPerson * item.numberOfPersons;
   }, 0);
 
+  const [isPaid,setIsPaid] = useState(false);
+
   return (
-    <Flex direction="column" alignItems="center">
+    <Flex direction="column" alignItems="center" >
       <Header
         optionalButton={true}
         title="UNIVERSITATEA TEHNICĂ „GHEORGHE ASACHI” DIN IAȘI"
@@ -278,7 +290,7 @@ function ReservationPage() {
           <Steps.Content index={1}>
             <Calendar
               onDateTimeSelected={setCalendarData}
-              month={6}
+              month={7}
               year={2025}
               blockedDates={blockedDates}
             />
@@ -291,8 +303,8 @@ function ReservationPage() {
             />
           </Steps.Content>
           <Steps.CompletedContent>
-            <PaymentCard isVisible={totalPrice === 0} />
-            <Button onClick={handleSubmit}>Finalizeaza</Button>
+            <PaymentCard isVisible={totalPrice === 0} onPaid={setIsPaid} />
+            <Button onClick={handleSubmit} disabled={isSubmitting} loading={isSubmitting}>{(isPaid)?"Finalizeaza":"Finalizeaza fara plata"}</Button>
           </Steps.CompletedContent>
         </Box>
 

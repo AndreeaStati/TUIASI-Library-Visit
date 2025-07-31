@@ -18,6 +18,7 @@ type CalendarProps = {
   highlightedDates?: DateTime[];
   blockedDates?: BlockedDateTime[];
   onDateTimeSelected: (data: DateTime) => void;
+  selectedPersons?: number;
 };
 
 function Calendar({
@@ -26,6 +27,7 @@ function Calendar({
   highlightedDates,
   blockedDates,
   onDateTimeSelected,
+  selectedPersons = 0
 }: CalendarProps) {
   function isDateHighlighted(date: number) {
     return highlightedDates?.some(
@@ -36,7 +38,6 @@ function Calendar({
     );
   }
   function handleSelectedDate(day: number) {
-    const dateStr1 = `${day}/${currentMonth + 1}/${currentYear}`;
     const dateStr = `${currentYear}-${String(currentMonth + 1).padStart(
       2,
       "0"
@@ -58,12 +59,11 @@ function Calendar({
     const blockedHoursForDay = blockedForDate.flatMap((slot) =>
       slot.color === "gray" ? slot.hours : []
     );
-
     // Dacă toate orele [11, 12, 13, 14] sunt blocate → ziua este complet blocată
     const allHoursBlocked = hoursToCheck.every((hour) =>
       blockedHoursForDay.includes(hour)
     );
-
+    console.log("Sunt toate orele blocate pentru " + date + "? : " + allHoursBlocked);
     return allHoursBlocked;
   }
 
@@ -150,7 +150,7 @@ function Calendar({
     }
   }, [selectedDay, selectedStartHour, selectedEndHour, selectedDate]);
 
-  function getDayColor(date: number): "gray" | "yellow" | undefined {
+  function getDayColor(date: number): string | undefined {
     const slotsForDay = blockedDates?.filter(
       (d) =>
         d.date.getDate() === date &&
@@ -239,8 +239,10 @@ function Calendar({
                 variant="outline"
                 size="sm"
                 bgColor={
-                  getDayColor(date) === "gray"
+                  getDayColor(date) === "gray" && isDateBlocked(date)
                     ? "gray.300"
+                    : getDayColor(date) === "gray"
+                    ? "orange"
                     : getDayColor(date) === "yellow"
                     ? "yellow.100"
                     : undefined
