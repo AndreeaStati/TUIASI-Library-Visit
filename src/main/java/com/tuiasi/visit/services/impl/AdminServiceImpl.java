@@ -36,5 +36,9 @@ public class AdminServiceImpl implements AdminService {
         return adminRepository.findById(id);
     }
 
+    @Override
+    public Optional<AdminEntity> findByUsername(String username) {
+        return adminRepository.findByUsername(username);
+    }
 
 }
