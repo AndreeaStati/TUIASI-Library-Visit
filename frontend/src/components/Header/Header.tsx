@@ -3,6 +3,7 @@ import stema from "../../assets/stema.png"
 import background1 from "../../assets/background_header1.jpg"
 import logo from "../../assets/logo1.png"
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 type HeaderProps = {
     title?: string;
@@ -10,6 +11,10 @@ type HeaderProps = {
 }
 
 function Header({ title, optionalButton }: HeaderProps) {
+    const [lang, setLang] = useState(localStorage.getItem('lang') || 'ro');
+    useEffect(() => {
+        localStorage.setItem('lang', lang);
+    }, [lang]);
     let backButton = null;
     if (optionalButton)
         backButton = <Button fontFamily="'Cinzel', serif" variant="outline" color="white" _hover={{ color: "black" }}
@@ -27,8 +32,10 @@ function Header({ title, optionalButton }: HeaderProps) {
                     </Box>
                 )}
                 <Flex gap="10px" alignSelf="flex-end" >
-                    <Button fontFamily="'Cinzel', serif" color="white" _hover={{ color: "black" }}>Romana</Button>
-                    <Button fontFamily="'Cinzel', serif" color="white" _hover={{ color: "black" }}>English</Button>
+                    <Button fontFamily="'Cinzel', serif" color="white" _hover={{ color: "black" }} 
+                    onClick={() => {setLang('ro'); window.location.reload();}}>Romana</Button>
+                    <Button fontFamily="'Cinzel', serif" color="white" _hover={{ color: "black" }}
+                    onClick={() => {setLang('en'); window.location.reload();}}>English</Button>
                 </Flex>
             </ButtonGroup>
             <Flex direction={{ base: "column", lg: "row" }} alignItems="center"

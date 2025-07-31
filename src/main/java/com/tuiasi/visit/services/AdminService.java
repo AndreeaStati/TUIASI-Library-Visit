@@ -13,4 +13,6 @@ public interface AdminService  {
     List<AdminEntity> findAll();
 
     Optional<AdminEntity> findById(Integer id);
+    
+    Optional<AdminEntity> findByUsername(String username);
 }
