@@ -95,7 +95,7 @@ function RegistrationForm({ onDataChange, formRef, showEmailError }: Registratio
             />
           </FormControl>
 
-          <FormControl mb={45}>
+          <FormControl mb={45} hidden={true}>
             <FormLabel>Institution</FormLabel>
             <Input
               variant="flushed"
@@ -118,7 +118,7 @@ function RegistrationForm({ onDataChange, formRef, showEmailError }: Registratio
             />
           </FormControl>
 
-          <FormControl mb={45}>
+          <FormControl mb={45} hidden={true}>
             <FormLabel>Preferred Language for Presentation</FormLabel>
             <Select
               value={info.language}

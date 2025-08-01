@@ -346,7 +346,6 @@ function Calendar({
         </Field.Root>
       </Card.Body>
       <Card.Footer>
-        <Button variant="outline"></Button>
       </Card.Footer>
     </Card.Root>
   );
