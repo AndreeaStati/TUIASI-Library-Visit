@@ -254,7 +254,7 @@ function ReservationPage() {
   const [isPaid,setIsPaid] = useState(false);
 
   return (
-    <Flex direction="column" alignItems="center" >
+    <Flex direction="column" alignItems="center" gap="20px">
       <Header
         optionalButton={true}
         title="UNIVERSITATEA TEHNICĂ „GHEORGHE ASACHI” DIN IAȘI"
